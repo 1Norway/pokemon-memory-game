@@ -1,0 +1,444 @@
+/* Simple Reset */
+
+html {
+  font-size: 62.5%;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+  margin: 0;
+}
+
+/* STYLES */
+
+body {
+  background-color: #000;
+}
+
+main {
+  /* height: 90vh; */
+  background-image: url(./assets/images/High_resolution_wallpaper_background_ID_77700190393.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+}
+
+.cards {
+  padding: 8rem;
+  perspective: 80rem;
+  display: grid;
+  grid-template-columns: repeat(4, 15rem);
+  grid-template-rows: repeat(4, 15rem);
+  gap: 4rem;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.steps {
+  position: absolute;
+  color: #fff;
+  width: 22rem;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Courgette', cursive;
+  font-size: 3rem;
+  right: 10%;
+  top: 30%;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15rem;
+  width: 15rem;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-radius: 2.25rem;
+  cursor: pointer;
+}
+
+
+.card__front,
+.card__back {
+  pointer-events: none;
+  position: absolute;
+}
+
+.card__front {
+  height: 12.8rem;
+  width: 12.8rem;
+  border-radius: 2.25rem;
+}
+
+.card__back {
+  height: 15rem;
+  width: 15rem;
+  backface-visibility: hidden;
+  background-image: url(./assets/images/pokemon_7025.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 2.25rem;
+  background-size: 14rem;
+}
+
+.card.toggleCard {
+  transform: rotateY(180deg);
+  pointer-events: none;
+}
+
+.card.toggleCard {
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0.5rem 1.5rem;
+}
+
+/* BUTTON ANIMATION */
+
+.glow-on-hover {
+  margin: 0 auto;
+  width: 220px;
+  height: 50px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  font-family: 'Courgette', cursive;
+  font-size: 3rem;
+  position: absolute;
+  right: 10%;
+  top: 60%;
+}
+
+.glow-on-hover:before {
+  content: '';
+  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+  border-radius: 10px;
+}
+
+.glow-on-hover:active {
+  color: #000
+}
+
+.glow-on-hover:active:after {
+  background: transparent;
+}
+
+.glow-on-hover:hover:before {
+  opacity: 1;
+}
+
+.glow-on-hover:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 400% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* Modal */
+
+html.modal-active,
+body.modal-active {
+  overflow: hidden;
+}
+
+#modal-container {
+  position: fixed;
+  display: table;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  z-index: 1;
+}
+
+#modal-container.one {
+  transform: scaleY(0.01) scaleX(0);
+  animation: unfoldIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.one .modal-background .modal {
+  transform: scale(0);
+  animation: zoomIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.one.out {
+  transform: scale(1);
+  animation: unfoldOut 1s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.one.out .modal-background .modal {
+  animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container .modal-background {
+  display: table-cell;
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  vertical-align: middle;
+}
+
+#modal-container .modal-background .modal {
+  background: black;
+  color: #7b2cbf;
+  font-family: 'Courgette', cursive;
+  padding: 50px;
+  border-radius: 3px;
+  font-weight: 300;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20rem;
+  height: 36rem;
+  margin: 0 auto;
+  gap: 1rem;
+  background-image: url(./assets/images/Psyduck.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-radius: 2.25rem;
+}
+
+#modal-container .modal-background .modal h2 {
+  font-size: 25px;
+  line-height: 25px;
+  margin-bottom: 15px;
+}
+
+#modal-container .modal-background .modal p {
+  font-size: 2rem;
+  line-height: 22px;
+}
+
+#modal-container .modal-background .modal .modal-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 3px;
+}
+
+#modal-container .modal-background .modal .modal-svg rect {
+  stroke: #fff;
+  stroke-width: 2px;
+  stroke-dasharray: 778;
+  stroke-dashoffset: 778;
+}
+
+.content {
+  min-height: 100%;
+  height: 100%;
+  background: white;
+  position: relative;
+  z-index: 0;
+}
+
+.content h1 {
+  padding: 75px 0 30px 0;
+  text-align: center;
+  font-size: 30px;
+  line-height: 30px;
+}
+
+.content .buttons {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+
+.content .buttons .button {
+  display: inline-block;
+  text-align: center;
+  padding: 10px 15px;
+  margin: 10px;
+  background: red;
+  font-size: 18px;
+  background-color: #efefef;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.content .buttons .button:hover {
+  color: white;
+  background: #009bd5;
+}
+
+@keyframes unfoldIn {
+  0% {
+    transform: scaleY(0.005) scaleX(0);
+  }
+
+  50% {
+    transform: scaleY(0.005) scaleX(1);
+  }
+
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+}
+
+@keyframes unfoldOut {
+  0% {
+    transform: scaleY(1) scaleX(1);
+  }
+
+  50% {
+    transform: scaleY(0.005) scaleX(1);
+  }
+
+  100% {
+    transform: scaleY(0.005) scaleX(0);
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+.footer {
+  /* height: 10vh; */
+  background-color: #000000;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.footer__nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.yearf {
+  -webkit-filter: invert(1);
+  filter: invert(1);
+  width: 8rem;
+  height: 8rem;
+}
+
+.github {
+  background-image: url(./assets/svg/github.svg);
+  background-repeat: no-repeat;
+  filter: invert(1);
+  width: 4.5rem;
+  height: 4.5rem;
+  background-size: cover;
+}
+
+.rss {
+  background-image: url(./assets/svg/rss.svg);
+  background-repeat: no-repeat;
+  filter: invert(1);
+  width: 12rem;
+  height: 4.5rem;
+}
+
+.n {
+  top: 70%;
+}
+
+.pen {
+  pointer-events: none;
+}
+
+
+@media (max-width: 1540px) {
+  .steps {
+    right: 76.5%;
+    top: 1.5%;
+  }
+
+  .glow-on-hover {
+    right: 41%;
+    top: 1.5%;
+  }
+
+  .n {
+    right: 1.5%;
+  }
+}
